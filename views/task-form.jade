@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  form(id="formTaskPage", method="post" action="")
+    label(for="taskName") Name
+    input(type="text", name="taskName", id="taskName", value="#{taskName}")
+    label(for="taskDesc") Description
+    input(type="text", name="taskDesc", id="taskDesc", value="#{taskDesc}")
+    input(type="Submit", value="#{buttonText}")

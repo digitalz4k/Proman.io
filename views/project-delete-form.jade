@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Dear #{userid}, are you sure you want to permanently delete your project #{projectName}?
+  if tasks.length > 0
+      p The tasks in this project are:
+      ul
+        for task in tasks
+            li #{task.taskName}
+  form(id="formProjectDelete", method="post" action="")
+    input(type="hidden", name="projectID", id="projectID", value="#{projectID}")
+    input(type="Submit", value="Yes, please delete it!")

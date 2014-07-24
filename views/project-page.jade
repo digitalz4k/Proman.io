@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Mongoose Project Management
+  h2= projectName
+  p Created by: #{createdBy.name} - #{createdBy.email}
+  if tasks.length > 0
+    ul
+        for task in tasks
+            li
+                a(href="/project/#{projectID}/task/edit/#{task._id}", title="#{task.taskDesc}") #{task.taskName}
+                a(href="/project/#{projectID}/task/delete/#{task._id}") Delete
+  else
+    p Your project is empty.
+      a(href="/project/#{projectID}/task/new") Start to add your tasks!
+  ul
+    li
+      a(href="/project/#{projectID}/task/new") Add a task
+    li
+        a(href="/project/edit/#{projectID}") Edit project
+    li
+        a(href="/project/delete/#{projectID}") Delete project
+  ul
+    li
+      a(href="/user") Back to profile page
