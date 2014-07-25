@@ -1,6 +1,7 @@
 var express = require('express');
+var port = process.env.PORT || 3000;
 var session = require('express-session');
-var db = require('./model/db');
+var db = require('./server/model/db');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -8,16 +9,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var moment = require('moment');
 
-var routes = require('./routes/index');
-var collaborator = require('./routes/collaborator');
-var task = require('./routes/task');
-var project = require('./routes/project');
-var user = require('./routes/user');
+var routes = require('./server/routes/index');
+var collaborator = require('./server/routes/collaborator');
+var task = require('./server/routes/task');
+var project = require('./server/routes/project');
+var user = require('./server/routes/user');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
@@ -29,7 +30,7 @@ app.use(session({secret: 'keyboard cat',
                             cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
                             saveUninitialized: true,
                             resave: true}))
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app')));
 
 //INDEX ROUTE
 app.use('/', routes);
@@ -166,5 +167,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// Launch server ====================================================================
+app.listen(port, function () {
+  console.log('Client and Web API server launched on http://localhost:' + port);
+});
 
+// Expose ==========================================================================
 module.exports = app;

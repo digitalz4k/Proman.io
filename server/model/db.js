@@ -1,9 +1,11 @@
 //use Mongoose dependency
 var mongoose = require('mongoose'),
-    Project = require('./project');
+        Model = require('./model');
 
-//define Mongoose URI
+//Development Mongoose URI
 var dbURI = 'mongodb://localhost/mongoosepm';
+//Production Mongoose URI
+//var dbURI = 'mongodb://digitalz:kirikou2014@ds059908.mongolab.com:59908/heroku_app27775831';
 
 //Mongoose connection
 mongoose.connect(dbURI);
