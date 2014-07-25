@@ -3,9 +3,9 @@ var mongoose = require('mongoose'),
         Model = require('./model');
 
 //Development Mongoose URI
-var dbURI = 'mongodb://localhost/mongoosepm';
+//var dbURI = 'mongodb://localhost/mongoosepm';
 //Production Mongoose URI
-//var dbURI = 'mongodb://digitalz:kirikou2014@ds059908.mongolab.com:59908/heroku_app27775831';
+var dbURI = 'mongodb://digitalz:kirikou2014@ds059908.mongolab.com:59908/heroku_app27775831';
 
 //Mongoose connection
 mongoose.connect(dbURI);
