@@ -1,8 +1,6 @@
 //use Mongoose dependency
 var mongoose = require('mongoose'),
-    project = require('./project'),
-    task = require('./task')
-    user = require('./user');
+    Project = require('./project');
 
 //define Mongoose URI
 var dbURI = 'mongodb://localhost/mongoosepm';

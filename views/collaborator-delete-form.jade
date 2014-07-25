@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  p Dear #{userid}, are you sure you want to permanently remove your collaborator #{cName}?
+  form(id="formCollaboratorDelete", method="post" action="")
+    input(type="hidden", name="collaboratorID", id="collaboratorID", value="#{collaboratorID}")
+    input(type="Submit", value="Yes, please remove!")

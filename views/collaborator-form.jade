@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  form(id="formCollaboratorPage", method="post" action="")
+    label(for="collaboratorID") Collaborator ID
+    input(type="text", name="collaboratorID", id="collaboratorID", value="#{collaboratorID}")
+    input(type="Submit", value="#{buttonText}")

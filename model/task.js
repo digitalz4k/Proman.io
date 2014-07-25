@@ -18,7 +18,7 @@ var emailValidator = function(email) {
 
 /*********************************************      TASK SCHEMA   ******************************************** */
 var taskSchema = new mongoose.Schema({
-    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    assignedTo: [ { type: mongoose.Schema.Types.ObjectId, ref: 'User' } ],
     taskName: { type: String,
                         required: 'Cannot be empty.',
                         validate: [lengthValidator, 'Too short!']
@@ -31,4 +31,5 @@ var taskSchema = new mongoose.Schema({
     modifiedOn: Date
 });
 
-module.exports = taskSchema;
+console.log("Task S. loaded.");
+module.exports = taskSchema

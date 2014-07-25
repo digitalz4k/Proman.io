@@ -96,6 +96,7 @@ exports.create = function(req, res){
         title: 'Create project',
         projectName: "",
         tasks: "",
+        collaborators: "",
         buttonText: "Start!"
     });
 };
@@ -104,6 +105,7 @@ exports.doCreate = function(req, res){
     Project.create({
         projectName: req.body.ProjectName,
         tasks: req.body.Tasks,
+        collaborators: req.body.Collaborators,
         modifiedOn: Date.now(),
         createdBy: req.session.user._id
     }, function(err, project){
@@ -144,6 +146,7 @@ exports.displayInfo = function(req, res){
             Project
             .findById(req.params.id)
             .populate('createdBy', 'name email')
+            .populate('collaborators', 'name email')
             .exec(function(err, project){
                     if(err){
                         console.log(err);
@@ -154,6 +157,7 @@ exports.displayInfo = function(req, res){
                             title: project.projectName,
                             projectName: project.projectName,
                             tasks: project.tasks,
+                            collaborators: project.collaborators,
                             createdBy: project.createdBy,
                             projectID: req.params.id
                         });
@@ -173,6 +177,7 @@ exports.edit = function(req, res){
     else{
         Project.findById(req.params.id)
         .populate('createdBy', 'name email')
+        .populate('collaborators', 'name email')
         .exec(
             function(err, project){
             if(err){
@@ -185,7 +190,6 @@ exports.edit = function(req, res){
                     _id: req.params.id,
                     projectName: project.projectName,
                     userid: project.createdBy,
-                    tasks: project.tasks,
                     buttonText: "Save"
                 });
             }
@@ -202,7 +206,6 @@ exports.doEdit = function(req, res){
             }else{
                 project.projectName = req.body.ProjectName;
                 project.createdBy = req.session.user._id;
-                project.tasks = req.body.Tasks;
                 project.modifiedOn = Date.now();
                 project.save(function(err){
                     if(!err){
@@ -224,6 +227,7 @@ exports.confirmDelete = function(req, res){
         Project
         .findById(req.params.id)
         .populate('createdBy', 'name email')
+        .populate('collaborators', 'name email')
         .exec(
             function(err, project){
                 if(err){
@@ -236,7 +240,8 @@ exports.confirmDelete = function(req, res){
                         projectID: req.params.id,
                         projectName: project.projectName,
                         userid: project.createdBy.name,
-                        tasks: project.tasks
+                        tasks: project.tasks,
+                        collaborators: project.collaborators
                     });
                 };
             }

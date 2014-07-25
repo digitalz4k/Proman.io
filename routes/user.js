@@ -1,7 +1,11 @@
 var mongoose = require('mongoose'),
     session = require('express-session');
     User = mongoose.model('User'),
-    Project = mongoose.model('Project');
+    Project = mongoose.model('Project'),
+    moment = require('moment');
+
+/**************** Idioma PTBR ****************/
+//  moment.lang('pt-br');
 
     exports.findAllUsers = function(req, res){
         User.find(function(err, user){
@@ -117,7 +121,7 @@ exports.deleteUser = function(req, res) {
                 name: req.session.user.name,
                 email: req.session.user.email,
                 userID: req.session.user._id,
-                login: req.session.user.login
+                login: moment(req.session.user.login).fromNow()
             })
         }else{
             res.redirect('/login');

@@ -6,11 +6,13 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
 var routes = require('./routes/index');
-var user = require('./routes/user');
-var project = require('./routes/project');
+var collaborator = require('./routes/collaborator');
 var task = require('./routes/task');
+var project = require('./routes/project');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -23,7 +25,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(session({secret: 'keyboard cat', cookie: { maxAge: 60000000 }}))
+app.use(session({secret: 'keyboard cat',
+                            cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
+                            saveUninitialized: true,
+                            resave: true}))
 app.use(express.static(path.join(__dirname, 'public')));
 
 //INDEX ROUTE
@@ -118,6 +123,16 @@ app.route('/project/:id/task/edit/:taskID')
 app.route('/project/:id/task/delete/:taskID')
     .get(task.confirmDeleteTask)
     .post(task.doDeleteTask)
+
+//COLLABORATORS ROUTES
+
+app.route('/project/:id/collaborators/new')
+    .get(collaborator.createCollaborator)
+    .post(collaborator.doCreateCollaborator)
+
+app.route('/project/:id/collaborators/delete/:collaboratorID')
+    .get(collaborator.confirmDeleteCollaborator)
+    .post(collaborator.doDeleteCollaborator)
 
 
 /// catch 404 and forward to error handler

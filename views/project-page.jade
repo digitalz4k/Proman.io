@@ -1,25 +1,38 @@
 extends layout
 
 block content
-  h1 Mongoose Project Management
+  h1 Proman.io
   h2= projectName
   p Created by: #{createdBy.name} - #{createdBy.email}
+  h3 Your tasks
   if tasks.length > 0
     ul
         for task in tasks
             li
                 a(href="/project/#{projectID}/task/edit/#{task._id}", title="#{task.taskDesc}") #{task.taskName}
-                a(href="/project/#{projectID}/task/delete/#{task._id}") Delete
+                a(href="/project/#{projectID}/task/delete/#{task._id}") - Delete
   else
     p Your project is empty.
-      a(href="/project/#{projectID}/task/new") Start to add your tasks!
+    a(href="/project/#{projectID}/task/new") Start to add your tasks!
+  h3 Your collaborators
+  if collaborators.length > 0
+    ul
+      for collaborator in collaborators
+        li
+          p #{collaborator.name} - #{collaborator.email}
+          a(href="/project/#{projectID}/collaborators/delete/#{collaborator._id}") Remove
+  else
+    p You haven't any collaborators.
+    a(href="/project/#{projectID}/collaborators/new") I want to create my team!
+  h4 Actions
   ul
     li
       a(href="/project/#{projectID}/task/new") Add a task
     li
+      a(href="/project/#{projectID}/collaborators/new") Add a collaborator
+    li
         a(href="/project/edit/#{projectID}") Edit project
     li
         a(href="/project/delete/#{projectID}") Delete project
-  ul
-    li
-      a(href="/user") Back to profile page
+
+  a(href="/user") Back to profile page
