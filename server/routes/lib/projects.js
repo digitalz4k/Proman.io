@@ -1,6 +1,8 @@
+'use strict';
+
 var mongoose = require('mongoose'),
-    Project = mongoose.model('Project'),
-    User = mongoose.model('User');
+    Project = require('mongoose').model('Project'),
+    User = require('mongoose').model('User');
 
 exports.findAllProjects = function(req, res){
     Project.find(function(err, project){

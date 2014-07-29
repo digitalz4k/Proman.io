@@ -1,5 +1,7 @@
+'use strict';
+
 var mongoose = require('mongoose'),
-    Project = mongoose.model('Project');
+    Project = require('mongoose').model('Project');
 
 exports.createCollaborator = function(req, res){
     res.render('collaborator-form', {

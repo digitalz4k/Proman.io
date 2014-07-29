@@ -1,5 +1,7 @@
+'use strict';
+
 var mongoose = require('mongoose'),
-    session = require('express-session');
+    session = require('express-session'),
     User = mongoose.model('User'),
     Project = mongoose.model('Project'),
     moment = require('moment');
