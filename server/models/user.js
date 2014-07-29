@@ -16,7 +16,7 @@ var userSchema = new Schema({
      },
     createdOn: { type: Date, default: Date.now },
     modifiedOn: Date,
-    lastLogin: Date
+    lastLogin: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('User', userSchema);
